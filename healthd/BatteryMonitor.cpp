@@ -559,6 +559,19 @@ void BatteryMonitor::updateValues(void) {
 
     double MaxPower = 0;
 
+    // Rescan for the available charger types
+    std::unique_ptr<DIR, decltype(&closedir)> dir(opendir(POWER_SUPPLY_SYSFS_PATH), closedir);
+    if (dir == NULL) {
+        KLOG_ERROR(LOG_TAG, "Could not open %s\n", POWER_SUPPLY_SYSFS_PATH);
+    } else {
+        struct dirent* entry;
+        while ((entry = readdir(dir.get()))) {
+            const char* name = entry->d_name;
+            if (!strcmp(name, ".") || !strcmp(name, "..")) continue;
+            updateChargerPresence(name);
+        }
+    }
+
     for (const auto& chargerName : mChargerNames) {
         String8 path;
         path.appendFormat("%s/%s/online", POWER_SUPPLY_SYSFS_PATH, chargerName.c_str());
