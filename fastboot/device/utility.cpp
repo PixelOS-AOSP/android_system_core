@@ -198,7 +198,7 @@ bool GetDeviceLockStatus() {
     std::string fenrir;
     if (android::fs_mgr::GetKernelCmdline("fenrir", &fenrir) && fenrir == "true")
         return false;
-    return android::base::GetProperty("ro.boot.verifiedbootstate", "") != "orange";
+    return android::base::GetProperty("ro.boot.verifiedbootstate", "") == "green";
 }
 
 bool UpdateAllPartitionMetadata(FastbootDevice* device, const std::string& super_name,
