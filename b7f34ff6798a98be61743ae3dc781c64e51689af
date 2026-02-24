@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b10682e1_bfa4249c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2026-02-24T08:33:01Z",
+      "side": 1,
+      "message": "Not ideal but I\u0027d rather have the devices boot. I\u0027ll figure out what they later need since Nya said this was part of their patch list for 4.9",
+      "revId": "b7f34ff6798a98be61743ae3dc781c64e51689af",
+      "serverId": "58543e18-2196-4633-8043-7787712585ad"
+    }
+  ]
+}
