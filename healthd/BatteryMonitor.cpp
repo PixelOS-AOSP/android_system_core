@@ -434,6 +434,16 @@ static BatteryHealthData* ensureBatteryHealthData(HealthInfo* info) {
 }
 
 void BatteryMonitor::updateValues(void) {
+    std::unique_ptr<DIR, decltype(&closedir)> dir(opendir(POWER_SUPPLY_SYSFS_PATH), closedir);
+    if (dir != NULL) {
+        struct dirent* entry;
+        while ((entry = readdir(dir.get()))) {
+            const char* name = entry->d_name;
+            if (!strcmp(name, ".") || !strcmp(name, "..")) continue;
+            updateChargerPresence(name);
+        }
+    }
+
     initHealthInfo(mHealthInfo.get());
 
     if (!mHealthdConfig->batteryPresentPath.empty())
